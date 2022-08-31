@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Frituur Frida</title>
@@ -8,6 +8,8 @@
 </head>
 <body>
 <h1>Frituur Frida</h1>
+<h2>Adres</h2>
+<div th:object="${adres}" th:text="|*{straat} *{huisNr} *{gemeente.postCode} *{gemeente.naam}|"></div>
 <h2>We zijn vandaag <span th:text="${openGesloten}"></span>.</h2>
 </body>
 </html>
