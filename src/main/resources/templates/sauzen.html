@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sauzen</title>
+    <link rel="icon" href="images/frituur.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/frituur.css">
+</head>
+<body>
+<h1>Sauzen</h1>
+<ul>
+    <li th:each="saus : ${alleSauzen}" th:object="${saus}">
+        <span th:text="*{naam}"></span>
+        <ul>
+            <li th:each="ingredient : *{ingredienten}" th:text="${ingredient}"></li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>
