@@ -6,10 +6,7 @@
 <h1>Sauzen</h1>
 <ul>
     <li th:each="saus : ${alleSauzen}" th:object="${saus}">
-        <span th:text="*{naam}"></span>
-        <ul>
-            <li th:each="ingredient : *{ingredienten}" th:text="${ingredient}"></li>
-        </ul>
+        <a th:text="*{naam}" th:href="@{/sauzen/{nummer}(nummer=*{nummer})}"></a>
     </li>
 </ul>
 </body>
