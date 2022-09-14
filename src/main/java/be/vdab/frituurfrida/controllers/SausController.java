@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("sauzen")
@@ -20,6 +21,8 @@ public class SausController {
             new Saus(4, "tartare", new String[]{"mayonaise", "bearnaise"}),
             new Saus(5, "vinaigrette", new String[]{"olie", "azijn"})
     };
+
+    private final char[] alfabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
     @GetMapping
     public ModelAndView findAll() {
@@ -36,5 +39,20 @@ public class SausController {
         findByNummerHelper(nummer).ifPresent(gevondenSaus ->
                 modelAndView.addObject("saus", gevondenSaus));
         return modelAndView;
+    }
+
+    @GetMapping("alfabet")
+    public ModelAndView alfabet() {
+        return new ModelAndView("sausAlfabet", "alfabet", alfabet);
+    }
+
+    private Stream<Saus> findByLetterHelper(char letter) {
+        return Arrays.stream(alleSauzen).filter(saus -> saus.getNaam().charAt(0) == letter);
+    }
+
+    @GetMapping("alfabet/{letter}")
+    public ModelAndView findByLetter(@PathVariable char letter) {
+        return new ModelAndView("sausAlfabet", "alfabet", alfabet)
+                .addObject("sauzen", findByLetterHelper(letter).iterator());
     }
 }
