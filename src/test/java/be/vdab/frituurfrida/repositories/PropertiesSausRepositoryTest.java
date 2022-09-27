@@ -18,9 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PropertiesSausRepositoryTest {
     private final PropertiesSausRepository sausRepo;
 
-    private final Path PATH;// = Path.of("/data/sauzen.properties");
+    private final Path PATH;
 
-    public PropertiesSausRepositoryTest(PropertiesSausRepository sausRepo, @Value("${propertiesSausenPad}") Path path) {
+    public PropertiesSausRepositoryTest(PropertiesSausRepository sausRepo,
+                                        @Value("${propertiesSausenPad}") Path path) {
         this.sausRepo = sausRepo;
         PATH = path;
     }

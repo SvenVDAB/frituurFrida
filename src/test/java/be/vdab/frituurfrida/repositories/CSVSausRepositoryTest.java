@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Import(CSVSausRepository.class)
 class CSVSausRepositoryTest {
     private final SausRepository sausRepo;
-    private final Path PATH;// = Path.of("/data/sauzen.csv");
+    private final Path PATH;
 
     CSVSausRepositoryTest(CSVSausRepository sausRepo, @Value("${CSVSausenPad}") Path path) {
         this.sausRepo = sausRepo;
