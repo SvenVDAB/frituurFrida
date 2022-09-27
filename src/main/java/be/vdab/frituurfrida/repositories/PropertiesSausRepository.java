@@ -2,6 +2,7 @@ package be.vdab.frituurfrida.repositories;
 
 import be.vdab.frituurfrida.exceptions.SausRepositoryException;
 import be.vdab.frituurfrida.domain.Saus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,12 @@ import java.util.List;
 @Component
 @Primary
 public class PropertiesSausRepository implements SausRepository {
-    private static final Path PAD = Path.of("/data/sauzen.properties");
+    private final Path PAD;
+
+    public PropertiesSausRepository(@Value("${propertiesSausenPad}") Path PAD) {
+        this.PAD = PAD;
+    }
+
     @Override
     public List<Saus> findAll() {
         List<Saus> sauzen = new ArrayList<>();

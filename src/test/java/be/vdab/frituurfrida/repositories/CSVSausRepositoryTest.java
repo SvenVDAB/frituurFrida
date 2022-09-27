@@ -1,7 +1,11 @@
 package be.vdab.frituurfrida.repositories;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,14 +13,18 @@ import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(SpringExtension.class)
+@PropertySource("application.properties")
+@Import(CSVSausRepository.class)
 class CSVSausRepositoryTest {
-    private SausRepository sausRepo;
-    private static final Path PATH = Path.of("/data/sauzen.csv");
+    private final SausRepository sausRepo;
+    private final Path PATH;// = Path.of("/data/sauzen.csv");
 
-    @BeforeEach
-    void beforeEach() {
-        sausRepo = new CSVSausRepository();
+    CSVSausRepositoryTest(CSVSausRepository sausRepo, @Value("${CSVSausenPad}") Path path) {
+        this.sausRepo = sausRepo;
+        PATH = path;
     }
+
 
     @Test
     void erZijnEvenveelSauzenAlsErRegelsZijnInHetCSVBestand() throws IOException {

@@ -2,6 +2,7 @@ package be.vdab.frituurfrida.repositories;
 
 import be.vdab.frituurfrida.exceptions.SausRepositoryException;
 import be.vdab.frituurfrida.domain.Saus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -13,7 +14,11 @@ import java.util.List;
 @Component
 public class CSVSausRepository implements SausRepository {
 
-    private static final Path PAD = Path.of("/data/sauzen.csv");
+    private final Path PAD;
+
+    public CSVSausRepository(@Value("${CSVSausenPad}") Path PAD) {
+        this.PAD = PAD;
+    }
 
     @Override
     public List<Saus> findAll() {

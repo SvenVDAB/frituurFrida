@@ -1,22 +1,30 @@
 package be.vdab.frituurfrida.repositories;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+@ExtendWith(SpringExtension.class)
+@PropertySource("application.properties")
+@Import(PropertiesSausRepository.class)
 public class PropertiesSausRepositoryTest {
-    private PropertiesSausRepository sausRepo;
-    private static final Path PATH = Path.of("/data/sauzen.properties");
+    private final PropertiesSausRepository sausRepo;
 
-    @BeforeEach
-    void beforeEach() {
-        sausRepo = new PropertiesSausRepository();
+    private final Path PATH;// = Path.of("/data/sauzen.properties");
+
+    public PropertiesSausRepositoryTest(PropertiesSausRepository sausRepo, @Value("${propertiesSausenPad}") Path path) {
+        this.sausRepo = sausRepo;
+        PATH = path;
     }
+
 
     @Test
     void erZijnEvenveelSauzenAlsErRegelsZijnInHetPropertiesBestand() throws IOException {
