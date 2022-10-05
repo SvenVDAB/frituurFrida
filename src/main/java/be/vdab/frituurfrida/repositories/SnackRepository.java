@@ -53,8 +53,8 @@ public class SnackRepository {
         var sql = """
                 select id, naam, prijs
                 from snacks
-                where naam like '"""
-                + beginNaam + "%'";
-        return template.query(sql, snackRowMapper, beginNaam);
+                where naam like ?
+               """;
+        return template.query(sql, snackRowMapper, beginNaam + '%');
     }
 }
