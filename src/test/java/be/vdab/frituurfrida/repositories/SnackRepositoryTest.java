@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @JdbcTest
 @Import(SnackRepository.class)
-@Sql("/insertSnacks.sql")
+@Sql({"/insertSnacks.sql", "/insertDagverkopen.sql"})
 public class SnackRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
     public static final String SNACKS = "snacks";
     public final SnackRepository repository;
@@ -64,5 +64,20 @@ public class SnackRepositoryTest extends AbstractTransactionalJUnit4SpringContex
                 .extracting(Snack::getNaam)
                 .allSatisfy(naam -> assertThat(naam.toLowerCase()).startsWith("t"))
                 .isSortedAccordingTo(String::compareToIgnoreCase);
+    }
+
+    @Test
+    void aantalVerkochteSnacksPerId() {
+        var aantalVerkochteSnacksPerId = repository.findAantalVerkochteSnacksPerId();
+/*        assertThat(aantalVerkochteSnacksPerId)
+                .hasSize(super.jdbcTemplate.queryForObject("select count(id) from snacks", Integer.class));*/
+        assertThat(aantalVerkochteSnacksPerId)
+                .hasSize(countRowsInTable(SNACKS));
+        var rij1 = aantalVerkochteSnacksPerId.get(0);
+        System.out.println("x = " + rij1);
+        assertThat(rij1.totaalAantal())
+                .isEqualTo(super.jdbcTemplate
+                        .queryForObject("select sum(aantal) from dagVerkopen where snackId = " + rij1.id(),
+                                Integer.class));
     }
 }

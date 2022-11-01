@@ -1,5 +1,6 @@
 package be.vdab.frituurfrida.controllers;
 
+import be.vdab.frituurfrida.forms.BeginNaamForm;
 import be.vdab.frituurfrida.services.SnackService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,5 +27,23 @@ public class SnackController {
     public ModelAndView findByLetter(@PathVariable char letter) {
         return new ModelAndView("snackAlfabet", "alfabet", alfabet)
                 .addObject("snacks", snackService.findByBeginNaam(String.valueOf(letter)));
+    }
+
+    @GetMapping("aantalverkochtesnacksperid")
+    public ModelAndView findAantalVerkochteSnacksPerId() {
+        return new ModelAndView("aantalverkochtesnacksperid", "aantalVerkochteSnacksPerId",
+                snackService.findAantalVerkochteSnacksPerId());
+    }
+
+    @GetMapping("beginnaam/form")
+    public ModelAndView beginNaamForm() {
+        return new ModelAndView("beginnaam")
+                .addObject(new BeginNaamForm(null));
+    }
+
+    @GetMapping("beginnaam")
+    public ModelAndView findByBeginNaam(BeginNaamForm form) {
+        return new ModelAndView("beginnaam", "snacks",
+                snackService.findByBeginNaam(form.begin()));
     }
 }

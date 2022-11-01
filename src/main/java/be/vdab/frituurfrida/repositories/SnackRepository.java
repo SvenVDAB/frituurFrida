@@ -1,6 +1,7 @@
 package be.vdab.frituurfrida.repositories;
 
 import be.vdab.frituurfrida.domain.Snack;
+import be.vdab.frituurfrida.dto.AantalVerkochteSnacksPerId;
 import be.vdab.frituurfrida.exceptions.SnackNietGevondenException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -51,10 +52,26 @@ public class SnackRepository {
 
     public List<Snack> findByBeginNaam(String beginNaam) {
         var sql = """
-                select id, naam, prijs
-                from snacks
-                where naam like ?
-               """;
+                 select id, naam, prijs
+                 from snacks
+                 where naam like ?
+                """;
         return template.query(sql, snackRowMapper, beginNaam + '%');
+    }
+
+    public List<AantalVerkochteSnacksPerId> findAantalVerkochteSnacksPerId() {
+        var sql = """
+                select id, naam, sum(aantal) as totaalAantal
+                from snacks
+                left outer join dagverkopen
+                on snacks.id = dagverkopen.snackId
+                group by id
+                order by id
+                """;
+        RowMapper<AantalVerkochteSnacksPerId> mapper = (result, rowNum) ->
+                new AantalVerkochteSnacksPerId(result.getLong("id"),
+                        result.getString("naam"),
+                        result.getInt("totaalAantal"));
+        return template.query(sql, mapper);
     }
 }

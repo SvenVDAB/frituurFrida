@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Verkochte aantallen per snack')"></head>
+<body>
+<nav th:replace="fragments::menu"></nav>
+<h1>Aantal verkochte aantallen per snack</h1>
+<table id="aantalverkochtesnacksperid">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Naam</th>
+    <th>Aantal verkocht</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="idNaamEnAantalVerkocht:${aantalVerkochteSnacksPerId}" th:object="${idNaamEnAantalVerkocht}">
+    <td th:text="*{id}"></td>
+    <td th:text="*{naam}"></td>
+    <td th:text="*{totaalAantal}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

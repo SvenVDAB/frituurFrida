@@ -1,6 +1,7 @@
 package be.vdab.frituurfrida.services;
 
 import be.vdab.frituurfrida.domain.Snack;
+import be.vdab.frituurfrida.dto.AantalVerkochteSnacksPerId;
 import be.vdab.frituurfrida.repositories.SnackRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +29,9 @@ public class SnackService {
 
     public List<Snack> findByBeginNaam(String beginNaam) {
         return snackRepository.findByBeginNaam(beginNaam);
+    }
+
+    public List<AantalVerkochteSnacksPerId> findAantalVerkochteSnacksPerId() {
+        return snackRepository.findAantalVerkochteSnacksPerId();
     }
 }
