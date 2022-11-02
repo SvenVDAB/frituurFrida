@@ -7,7 +7,7 @@
 <h1>Snacks beginnend met</h1>
 <form th:object="${beginNaamForm}"
       method="get" th:action="@{/snacks/beginnaam}">
-    <label>Begin naam:<input th:field="*{begin}"></label>
+    <label>Begin naam:<span th:errors="*{begin}"></span><input th:field="*{begin}"></label>
     <button>Zoeken</button>
 </form>
 <ul th:if="${snacks}">

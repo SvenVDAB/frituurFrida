@@ -1,4 +1,6 @@
 package be.vdab.frituurfrida.forms;
 
-public record BeginNaamForm(String begin) {
+import javax.validation.constraints.NotBlank;
+
+public record BeginNaamForm(@NotBlank String begin) {
 }
