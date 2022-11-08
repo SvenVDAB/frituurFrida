@@ -13,7 +13,9 @@
     <button>Zoeken</button>
 </form>
 <ul th:if="${snacks}">
-    <li th:each="snack : ${snacks}" th:text="${snack.naam}"></li>
+    <li th:each="snack : ${snacks}" th:object="${snack}">
+        <a th:text="*{naam}" th:href="@{/snacks/wijzigen/form/{id}(id=*{id})}"></a>
+    </li>
 </ul>
 </body>
 </html>

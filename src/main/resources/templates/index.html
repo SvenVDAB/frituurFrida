@@ -3,6 +3,11 @@
 <head th:replace="fragments::head(title='Frituur Frida')"></head>
 <body>
 <nav th:replace="fragments::menu"></nav>
+
+<!--<div th:if="${param.snackNietGevonden}" class="fout">Snack
+<th:block th:text="${param.snackNietGevonden}"></th:block> niet gevonden</div>-->
+<div th:if="${param.snackNietGevonden}" class="fout">Snack niet gevonden</div>
+
 <h1>Frituur Frida</h1>
 <h2>Adres</h2>
 <div th:object="${adres}" th:text="|*{straat} *{huisNr} *{gemeente.postCode} *{gemeente.naam}|"></div>
