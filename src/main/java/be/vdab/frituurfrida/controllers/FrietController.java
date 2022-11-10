@@ -18,7 +18,7 @@ public class FrietController {
 
     @GetMapping("zoeken")
     public ModelAndView toonDeuren() {
-        return new ModelAndView("zoekDeFriet").addObject(zoekDeFriet);
+        return new ModelAndView("zoekDeFriet").addObject("deuren", zoekDeFriet.getDeuren());
     }
 
     @PostMapping("zoeken/opendeur")

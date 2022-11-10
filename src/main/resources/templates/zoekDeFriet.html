@@ -5,7 +5,7 @@
 <nav th:replace="fragments::menu"></nav>
 <h1>Zoek de friet</h1>
 <form method="post" th:action="@{/frieten/zoeken/opendeur}">
-    <block th:each="deur : ${zoekDeFriet.getDeuren()}" th:object="${deur}">
+    <block th:each="deur : ${deuren}" th:object="${deur}">
         <button th:name="index" th:value="*{index}">
             <img th:if="not *{open}" th:src="@{/images/deurtoe.png}" alt="deur toe">
             <block th:if="*{open}">
