@@ -52,7 +52,8 @@ public class SnackController {
     @GetMapping("beginnaam")
     public ModelAndView findByBeginNaam(@Valid BeginNaamForm form, Errors errors) {
         var modelAndView = new ModelAndView("beginnaam");
-        if (errors.hasErrors()) return modelAndView;
+        if (errors.hasErrors())
+            return modelAndView;
         return modelAndView.addObject("snacks",
                 snackService.findByBeginNaam(form.begin()));
     }
@@ -70,7 +71,6 @@ public class SnackController {
     public String wijzigen(@Valid Snack snack, Errors errors,
                            RedirectAttributes redirect) {
         if (errors.hasErrors()) {
-            //return new ModelAndView("wijzigSnack");
             return "wijzigSnack";
         }
         try {
