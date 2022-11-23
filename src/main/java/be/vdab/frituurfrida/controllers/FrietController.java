@@ -27,7 +27,7 @@ public class FrietController {
         return "redirect:/frieten/zoeken";
     }
 
-    @GetMapping("zoeken/nieuwspel")
+    @PostMapping("zoeken/nieuwspel")
     public String nieuwSpel() {
         zoekDeFriet.reset();
         return "redirect:/frieten/zoeken";

@@ -4,7 +4,7 @@
 <body>
 <nav th:replace="fragments::menu"></nav>
 <h1>Snacks, alfabetisch</h1>
-<ul>
+<ul class="naastMekaar">
     <li th:each="eenLetter:${alfabet}">
         <a th:href="@{/snacks/alfabet/{eenLetter}(eenLetter=${eenLetter})}"
            th:text="${eenLetter}"></a>

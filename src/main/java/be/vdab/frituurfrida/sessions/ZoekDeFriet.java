@@ -7,11 +7,14 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.io.Serializable;
 @Component
 @SessionScope
-
 public class ZoekDeFriet implements Serializable {
-    private final static long serialVersionUID = 1L;
-    private final int AANTAL_DEUREN=7;
+    private static final long serialVersionUID = 1L;
+    private static final int AANTAL_DEUREN=7;
     private final Deur[] deuren = new Deur[AANTAL_DEUREN];
+
+    public ZoekDeFriet() {
+        reset();
+    }
 
     public Deur[] getDeuren() {
         return deuren;

@@ -4,20 +4,17 @@
 <body>
 <nav th:replace="fragments::menu"></nav>
 <h1>Zoek de friet</h1>
-<form method="post" th:action="@{/frieten/zoeken/opendeur}">
-    <block th:each="deur : ${deuren}" th:object="${deur}">
+<form th:action="@{/frieten/zoeken/opendeur}" method="post">
+    <th:block th:each="deur : ${deuren}" th:object="${deur}" class="naastMekaar">
         <button th:name="index" th:value="*{index}">
             <img th:if="not *{open}" th:src="@{/images/deurtoe.png}" alt="deur toe">
-            <block th:if="*{open}">
-                <img th:if="*{metFriet}" th:src="@{/images/gevonden.png}" alt="friet gevonden">
-                <img th:if="*{not metFriet}" th:src="@{/images/gevonden.png}" alt="deur open">
-            </block>
+            <img th:if="*{open} and *{metFriet}" th:src="@{/images/gevonden.png}" alt="friet gevonden">
+            <img th:if="*{open} and not *{metFriet}" th:src="@{/images/deuropen.png}" alt="deur open">
         </button>
-    </block>
-
-    <!--  <button name="index" value="1">
-        <img th:src="@{/images/deurtoe.png}" alt="deur toe">
-      </button>-->
+    </th:block>
+</form>
+<form th:action="@{/frieten/zoeken/nieuwspel}" method="post">
+    <button>Nieuw spel</button>
 </form>
 </body>
 </html>
