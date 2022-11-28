@@ -24,4 +24,9 @@ public class GastenBoekService {
     public List<GastenBoekEntry> findAll() {
         return gastenBoekRepository.findAll();
     }
+
+    @Transactional
+    public void verwijder(Long[] ids) {
+        gastenBoekRepository.verwijder(ids);
+    }
 }

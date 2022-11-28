@@ -7,19 +7,24 @@
 <h1>Gastenboek</h1>
 <a th:if="not ${gastenBoekEntryForm}" th:href="@{/gastenboek/toevoegen}">Toevoegen</a>
 <form th:if="${gastenBoekEntryForm}" th:action="@{/gastenboek/toevoegen}" method="post">
-  <label>Naam:<span th:errors="${gastenBoekEntryForm.naam}"></span>
-    <input th:field="${gastenBoekEntryForm.naam}" autofocus required size="20" maxlength="45">
-  </label>
-  <label>Bericht:<span th:errors="${gastenBoekEntryForm.bericht}"></span>
-    <input th:field="${gastenBoekEntryForm.bericht}" required size="20" maxlength="255">
-  </label>
-  <button>Toevoegen</button>
+    <label>Naam:<span th:errors="${gastenBoekEntryForm.naam}"></span>
+        <input th:field="${gastenBoekEntryForm.naam}" autofocus required size="20" maxlength="45">
+    </label>
+    <label>Bericht:<span th:errors="${gastenBoekEntryForm.bericht}"></span>
+        <input th:field="${gastenBoekEntryForm.bericht}" required size="20" maxlength="255">
+    </label>
+    <button>Toevoegen</button>
 </form>
-<ul>
-    <li th:each="gastenBoekEntry : ${gastenBoekEntries}" th:object="${gastenBoekEntry}">
-        <strong th:text="|*{{datum}} *{naam} |"></strong>
-        <th:block th:text="|*{bericht}|"></th:block>
-    </li>
-</ul>
+<form th:if="not ${gastenBoekEntries.isEmpty()}"
+      th:action="@{/gastenboek/verwijderen}" method="post">
+    <ul>
+        <li th:each="entry : ${gastenBoekEntries}" th:object="${entry}">
+            <strong th:text="|*{{datum}} *{naam} |"></strong>
+            <th:block th:text="*{bericht}"></th:block>
+            <input type="checkbox" name="id" th:value="*{id}">
+        </li>
+    </ul>
+    <button>Verwijderen</button>
+</form>
 </body>
 </html>

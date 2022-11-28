@@ -47,10 +47,11 @@ public class GastenBoekRepositoryTest extends AbstractTransactionalJUnit4SpringC
     }
 
     @Test
-    void vanElkeTestPizzaIsErJuist1() {
+    void verwijder() {
         var id1 = idVanTest1Gastenboek();
         var id2 = idVanTest2Gastenboek();
-        assertThat(countRowsInTableWhere(GASTENBOEK, "id = " + id1)).isOne();
-        assertThat(countRowsInTableWhere(GASTENBOEK, "id = " + id2)).isOne();
+        assertThat(countRowsInTableWhere(GASTENBOEK,
+                "id in (" + id1 + "," + id2 + ")"))
+                .isZero();
     }
 }

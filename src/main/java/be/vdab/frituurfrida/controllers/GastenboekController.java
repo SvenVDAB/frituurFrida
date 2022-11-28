@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("gastenboek")
@@ -29,8 +30,10 @@ public class GastenboekController {
 
     @GetMapping("toevoegen")
     public ModelAndView toonForm() {
-        return new ModelAndView("gastenboek",
+        var modelAndView = new ModelAndView("gastenboek",
                 "gastenBoekEntryForm", new GastenBoekEntryForm("", ""));
+        modelAndView.addObject("gastenBoekEntries", gastenBoekService.findAll());
+        return modelAndView;
     }
 
     @PostMapping("toevoegen")
@@ -40,6 +43,12 @@ public class GastenboekController {
         }
         gastenBoekService.create(new GastenBoekEntry(0, form.naam(), LocalDate.now(),
                 form.bericht()));
+        return "redirect:/gastenboek";
+    }
+
+    @PostMapping("verwijderen")
+    public String delete(Optional<Long[]> id) {
+        id.ifPresent(ourId -> gastenBoekService.verwijder(ourId));
         return "redirect:/gastenboek";
     }
 }
