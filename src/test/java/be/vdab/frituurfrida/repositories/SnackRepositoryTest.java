@@ -38,7 +38,7 @@ public class SnackRepositoryTest extends AbstractTransactionalJUnit4SpringContex
     }
 
     @Test
-    void findByOnbestaandeIdVindtGeenPizza() {
+    void findByOnbestaandeIdVindtGeenSnack() {
         assertThat(repository.findById(-1)).isEmpty();
     }
 
