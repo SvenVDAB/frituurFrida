@@ -52,7 +52,8 @@ public class GastenBoekRepository {
                     + "?,".repeat(ids.length - 1)
                     + "?)";
 
-            template.update(sql, ids);
+            //template.update(sql, id);
+            template.update(sql, (Object[]) ids);
         }
     }
 }
